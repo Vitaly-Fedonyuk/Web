@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Переміщення прямокутника</title>
+    <style>
+        .rectangle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            left: 50%;
+            top: 50%;
+            transition: left 0.5s, top 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const rectangle = document.createElement('div');
+        rectangle.className = "rectangle";
+        document.body.appendChild(rectangle);
+
+        let x = window.innerWidth / 2;
+        let y = window.innerHeight / 2;
+
+        const moveRectangle = () => {
+            const direction = Math.floor(Math.random() * 4) + 1;
+            const speed = Math.floor(Math.random() * 200) + 50;
+
+            switch (direction) {
+                case 1: // Праворуч
+                    if (x+speed < window.innerWidth - parseInt(rectangle.style.width)) {
+                        x += speed;
+                    }
+                    break;
+                case 2: // Ліворуч
+                    if (x-speed > 0) {
+                        x -= speed;
+                    }
+                    break;
+                case 3: // Вниз
+                    if (y+speed < window.innerHeight - parseInt(rectangle.style.height)) {
+                        y += speed;
+                    }
+                    break;
+                case 4: // Вгору
+                    if (y-speed > 0) {
+                        y -= speed;
+                    }
+                    break;
+            }
+
+            rectangle.style.left = `${x}px`;
+            rectangle.style.top = `${y}px`;
+        }
+
+        const inverval = setInterval(moveRectangle, 500);
+        const stopRectangle = () => {
+            clearInterval(inverval);
+        }
+
+        rectangle.addEventListener('mouseenter', stopRectangle);
+    </script>
+</body>
+</html>
